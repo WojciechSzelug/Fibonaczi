@@ -1,0 +1,27 @@
+version: '3'
+services:
+  web:
+    image: lab8
+    stdin_open: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    build:
+     context: .
+     dockerfile: Dockerfile
+    ports: 
+     - '3000:3000'
+    volumes:
+     - .:/app
+     - /app/node_modules
+     
+  test:
+    stdin_open: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: ["npm", "run", "test"]
